@@ -64,7 +64,7 @@ Pass the options object through the relevant sinchRequest method, before proceed
 - __applicationSigned__ - Digest authentication using application credentials
 - __instanceSigned__ - Digest authentication using instance credentials
 - __verify__ - Verify incoming request with Digest authentication (Coming soon..)
-- __ticket__ - Use a ticket for request authentication
+- __ticket__ - Use a ticket for request authentication, only used for retrieving an instance
 
 ## Application or Instance credentials?
 
@@ -76,9 +76,9 @@ _Instance credentials_ are used for authenticated users and have an expire time 
 
 ## Public or Signed?
 
-Certain user API endpoints can be used with the public authentication header, this is only used when authenticating or creating user using Sinch Authentication. See the [Sinch user guide](https://www.sinch.com/docs/voice/javascript/#authentication) for more information.
+Only a few User-API endpoints can be used with the public authentication header, this is only used with Sinch Authentication, which is optionally used for partner applications and always used for Sinch Portal API integrations. See the [Sinch user guide](https://www.sinch.com/docs/voice/javascript/#authentication) for more information.
 
-All other requests should be made using either application signed requests, or instance signed requests.
+All other requests should be made using either application-signed requests, or instance-signed requests.
 
 ## Samples
 
@@ -143,7 +143,11 @@ Instead of including data in the options object it's possible to only set the `C
 	});
 	req.end(data);
 
-This method requires a few extra steps and there's an extra dependency on the `create-hash` library for MD5 calculation. However, it will give you a bit more control and in some cenarios this may be crucial for optimization. 
+This method requires a few extra steps and there's an extra dependency on the `create-hash` library for MD5 calculation. However, it will give you a bit more control and in some scenarios this may be crucial for optimization. 
+
+## Getting started
+
+New to Sinch? In order to get started, please visit [our website](www.sinch.com) and sign up for a free development account.
 
 ## Feedback 
 
