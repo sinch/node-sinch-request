@@ -1,6 +1,6 @@
 # Sinch HTTP Authentication node module
 
-Node module to add authentication headers, or validate request headers, according to Sinch HTTP Authentication practice for Basic, Digest and Ticket authentication. Compatible with browserify for browser based applications.
+Node module to add authentication headers, or validate request headers, according to Sinch HTTP Authentication practice for Digest authentication and user authentication. Compatible with browserify for browser based applications.
 
 Transforming request headers usually involves verifying and/or setting the following headers as needed;
 
@@ -60,7 +60,7 @@ Pass the options object through the relevant sinchRequest method, before proceed
 
 ## Methods
 
-- __public__ - Used for public endpoints (only user api)
+- __public__ - Used for public endpoints (only user api), use only application key
 - __applicationSigned__ - Digest authentication using application credentials
 - __instanceSigned__ - Digest authentication using instance credentials
 - __verify__ - Verify incoming request with Digest authentication (Coming soon..)
@@ -70,7 +70,7 @@ Pass the options object through the relevant sinchRequest method, before proceed
 
 Sinch credentials (key and secret pair) come in two flavors; __application__ and __instance__. 
 
-_Application credentials_ are used when API calls are made on behalf of a particular application and are usually made by systems you control (not your customers or end-users). There are exceptions however, some User-API endpoints rely on basic auth, using only the application key for user authentication and creation (if enabled in dashboard). 
+_Application credentials_ are used when API calls are made on behalf of a particular application and are usually made by systems you control, or when Sinch perform callbacks to your backend. When verifying callbacks, please see the `verify()` method.
 
 _Instance credentials_ are used for authenticated users and have an expire time set. Usually the credentials are valid for 24 hours and can be used to access resources on behalf of that particular user, for example, when placing a call. A user can get instance credentials by providing an authentication ticket to the `/instance` endpoint on the base API (api.sinch.com). The authentication ticket itself can be created using the `sinch-ticketgen` module, or by relying on Sinch User Authentication services. See the [Sinch REST user guide](https://www.sinch.com/docs/overview/) for more information. 
 
