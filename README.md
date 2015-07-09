@@ -147,7 +147,7 @@ This method requires a few extra steps and there's an extra dependency on the `c
 
 ## Getting started
 
-New to Sinch? In order to get started, please visit [our website](www.sinch.com) and sign up for a free development account.
+New to Sinch? In order to get started, please visit [our website](http://www.sinch.com) and sign up for a free development account.
 
 ## Feedback 
 
