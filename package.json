@@ -1,0 +1,16 @@
+{
+  "name": "sinch-request",
+  "version": "0.0.1",
+  "description": "Node module for appedning headers to Sinch REST requests. Support basic auth, auth ticket, application signed and instance signed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Magnus Lundstedt",
+  "license": "MIT",
+  "dependencies": {
+    "assert-plus": "^0.1.5",
+    "create-hash": "^1.1.1",
+    "create-hmac": "^1.1.3"
+  }
+}
