@@ -22,8 +22,8 @@ var options = {
   withCredentials: false, // Necessary for browser compatability (browserify)
 };
 
-// Use sinch-request to 'pre-process' request headers by adding the basic authentication header (application)
-sinchRequest.applicationBasic(options, creds);
+// Use sinch-request to 'pre-process' request headers, adding authorization digest
+sinchRequest.applicationSigned(options, creds);
 
 // Perform the request
 var req = https.request(options, function(response) {

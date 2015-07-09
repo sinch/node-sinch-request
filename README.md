@@ -42,8 +42,8 @@ Pass the options object through the relevant sinchRequest method, before proceed
 	  withCredentials: false, // Necessary for browser compatability (browserify)
 	};
 
-	// Add basic authentication header (application)
-	sinchRequest.applicationBasic(options, creds);
+	// Add authentication header (application)
+	sinchRequest.applicationSigned(options, creds);
 
 	// Perform the request
 	var req = https.request(options, function(response) {
@@ -60,12 +60,10 @@ Pass the options object through the relevant sinchRequest method, before proceed
 
 ## Methods
 
-- __applicationBasic__ - Basic authentication using application credentials
-- __instanceBasic__ - Basic authentication using instance credentials
-- __verifyBasic__ - Verify incoming request with Basic authentication (TBD)
-- __applicationDigest__ - Digest authentication using application credentials
-- __instanceDigest__ - Digest authentication using instance credentials
-- __verifyDigest__ - Verify incoming request with Digest authentication (TBD)
+- __public__ - Used for public endpoints (only user api)
+- __applicationSigned__ - Digest authentication using application credentials
+- __instanceSigned__ - Digest authentication using instance credentials
+- __verify__ - Verify incoming request with Digest authentication (Coming soon..)
 - __ticket__ - Use a ticket for request authentication
 
 ## Application or Instance credentials?
@@ -74,19 +72,13 @@ Sinch credentials (key and secret pair) come in two flavors; __application__ and
 
 _Application credentials_ are used when API calls are made on behalf of a particular application and are usually made by systems you control (not your customers or end-users). There are exceptions however, some User-API endpoints rely on basic auth, using only the application key for user authentication and creation (if enabled in dashboard). 
 
-The important take-away is that the application secret must always be kept a secret, i.e. application signed requests using key and secret should strictly only be made by you, or systems you control.
-
 _Instance credentials_ are used for authenticated users and have an expire time set. Usually the credentials are valid for 24 hours and can be used to access resources on behalf of that particular user, for example, when placing a call. A user can get instance credentials by providing an authentication ticket to the `/instance` endpoint on the base API (api.sinch.com). The authentication ticket itself can be created using the `sinch-ticketgen` module, or by relying on Sinch User Authentication services. See the [Sinch REST user guide](https://www.sinch.com/docs/overview/) for more information. 
 
-## Basic or Digest authentication?
+## Public or Signed?
 
-Sinch HTTP Authentication rely on two mechanisms to securley authenticate HTTP requests; __Basic Authentication__ and __Digest Authentication__. 
+Certain user API endpoints can be used with the public authentication header, this is only used when authenticating or creating user using Sinch Authentication. See the [Sinch user guide](https://www.sinch.com/docs/voice/javascript/#authentication) for more information.
 
-_Basic authentication_ will transmit the credential key/secret pair in readable form with no protection, except that provided by HTTPS. Basic Auth is usually considered secure enough for many operations but are limited to a few scenarios in the Sinch API, such as sending an SMS or requesting SMS verification, but not making a call. 
-
-_Digest authentication_ add some security on top of HTTPS, in that the method will never transmit the secret. Instead the metod relies on a signature generated using various parts of the request header and body (if it's a POST), togheter with the credentials. This means it's not possible for an attacker to replicate the request or modify the request. The x-timestamp header reduce risk for replay-attacks, since older requests are not allowed. 
-
-For instructions on how to use particular REST resources, please see the Sinch user guide.
+All other requests should be made using either application signed requests, or instance signed requests.
 
 ## Samples
 
@@ -104,7 +96,54 @@ Include the bundle in a web project, by adding the following tag to your HTML fi
 
 	<script src="sample_bundle.js"></script>
 
-Be sure to check the developer console for sample output. 
+Be sure to check the developer console for sample output.
+
+## Alternate pattern
+
+Instead of including data in the options object it's possible to only set the `Content-Length` header, as well as `Content-MD5`. The example above would then look like this; 
+
+	var sinchRequest = require('sinch-request');
+	var https = require('https');
+	var createHash = require('create-hash');
+
+	// Your application credentials
+	var creds = {
+	  key: 'SOME_APP_KEY',
+	  secret: 'SOME_APP_SECRET'
+	}
+
+	var data = '{"message":"Hello World!"}'; // Data to be sent in JSON format
+
+	// HTTP request parameters for sending SMS
+	var options = {
+	  method: 'POST',
+	  host: 'messagingapi-01.sinch.com',
+	  port: 443,
+	  path: '/v1/sms/+1555123456',
+	  withCredentials: false, // Necessary for browser compatability (browserify)
+	  headers: {
+	  	'content-md5': createHash('md5').update(data).digest('base64'),
+	  	'content-length': data.length
+	  }
+	};
+
+	// Add authentication header (application)
+	sinchRequest.applicationSigned(options, creds);
+
+	// Perform the request
+	var req = https.request(options, function(response) {
+	  console.log('API response', response.statusCode);
+	  var data = '';
+	  response.on('data', function (chunk) {
+	    data += chunk;
+	  });
+	  response.on('end', function () {
+	    console.log('Response body: ' + data);
+	  });
+	});
+	req.end(data);
+
+This method requires a few extra steps and there's an extra dependency on the `create-hash` library for MD5 calculation. However, it will give you a bit more control and in some cenarios this may be crucial for optimization. 
 
 ## Feedback 
 

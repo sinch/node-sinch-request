@@ -3,12 +3,13 @@ var ticket = require('./lib/ticket');
 var sign = require('./lib/sign');
 
 module.exports = {
+	public: basic.applicationBasicAuthRequest,
 	applicationBasic: basic.applicationBasicAuthRequest,
 	instanceBasic: basic.instanceBasicAuthRequest,
 	verifyBasic: basic.verify, // TODO
 	ticket: ticket.addTicket,
-	applicationDigest: sign.applicationSignedRequest,
-	instanceDigest: sign.instanceSignedRequest,
-	verifyDigest: sign.verify, // TODO
+	applicationSigned: sign.applicationSignedRequest,
+	instanceSigned: sign.instanceSignedRequest,
+	verify: sign.verify, // TODO
 };
 

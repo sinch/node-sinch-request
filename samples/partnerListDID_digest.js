@@ -21,7 +21,7 @@ var options = {
   withCredentials: false,
 };
 
-sinchRequest.applicationBasic(options); // Basic Auth w. Partner management application key (default)
+sinchRequest.public(options); // Basic Auth w. Partner management application key (default)
 
 var req = https.request(options, function(response) {
   console.log('Ticket request', response.statusCode);
@@ -78,7 +78,7 @@ var getOrgs = function(creds) {
     withCredentials: false,
   };
 
-  sinchRequest.instanceDigest(options, creds); // We sign our request using our instance key/secret with the Digest method (more secure)
+  sinchRequest.instanceSigned(options, creds); // We sign our request using our instance key/secret with the Digest method (more secure)
 
   var req = https.request(options, function(response) {
     console.log('  Organization request', response.statusCode);
@@ -104,7 +104,7 @@ var getDidsForSale = function(creds, organizationId) {
     withCredentials: false,
   };
 
-  sinchRequest.instanceDigest(options, creds); // We sign our request using our instance key/secret with the Digest method (more secure)
+  sinchRequest.instanceSigned(options, creds); // We sign our request using our instance key/secret with the Digest method (more secure)
 
   var req = https.request(options, function(response) {
     console.log('  DID request', response.statusCode);
