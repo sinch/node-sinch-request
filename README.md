@@ -42,7 +42,7 @@ Pass the options object through the relevant sinchRequest method, before proceed
 	  withCredentials: false, // Necessary for browser compatability (browserify)
 	};
 
-	// Use sinch-request to 'pre-process' request headers by adding the basic authentication header (application)
+	// Add basic authentication header (application)
 	sinchRequest.applicationBasic(options, creds);
 
 	// Perform the request
