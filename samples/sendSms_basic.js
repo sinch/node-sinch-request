@@ -1,5 +1,4 @@
-// Send SMS using Sinch with "basic auth" 
-// Note: not all Sinch API endpoints support basic auth, for more complex requests, see the digest example(s)
+// Send SMS using Sinch
 
 // This sample can be 'browserified' to run in the browser (Please see browserify.org)
 
