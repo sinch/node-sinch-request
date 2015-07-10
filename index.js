@@ -3,7 +3,7 @@ var ticket = require('./lib/ticket');
 var sign = require('./lib/sign');
 
 module.exports = {
-	public: basic.applicationBasicAuthRequest,
+	public: basic.publicAuthRequest,
 	applicationBasic: basic.applicationBasicAuthRequest,
 	instanceBasic: basic.instanceBasicAuthRequest,
 	ticket: ticket.addTicket,
