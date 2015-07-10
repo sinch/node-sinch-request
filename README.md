@@ -100,7 +100,7 @@ Include the bundle in a web project, by adding the following tag to your HTML fi
 
 	<script src="sample_bundle.js"></script>
 
-Be sure to check the developer console for sample output.
+Be sure to check the developer console for console output.
 
 ## Alternate pattern
 
