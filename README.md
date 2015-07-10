@@ -64,7 +64,7 @@ New to Sinch? In order to get started, please visit [our website](http://www.sin
 
 ## Methods
 
-- __public__ - Used for public endpoints (only user api), use only application key
+- __public__ - Used for public endpoints (only sinch User API)
 - __applicationSigned__ - Digest authentication using application credentials
 - __instanceSigned__ - Digest authentication using instance credentials
 - __verify__ - Verify incoming request with Digest authentication (Coming soon..)
