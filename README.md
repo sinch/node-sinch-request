@@ -58,6 +58,10 @@ Pass the options object through the relevant sinchRequest method, before proceed
 	});
 	req.end(options.data);
 
+## Get your app key
+
+New to Sinch? In order to get started, please visit [our website](http://www.sinch.com) and sign up for a free development account.
+
 ## Methods
 
 - __public__ - Used for public endpoints (only user api), use only application key
@@ -144,10 +148,6 @@ Instead of including data in the options object it's possible to only set the `C
 	req.end(data);
 
 This method requires a few extra steps and there's an extra dependency on the `create-hash` library for MD5 calculation. However, it will give you a bit more control and in some scenarios this may be crucial for optimization. 
-
-## Getting started
-
-New to Sinch? In order to get started, please visit [our website](http://www.sinch.com) and sign up for a free development account.
 
 ## Feedback 
 
