@@ -1,11 +1,27 @@
 {
   "name": "sinch-request",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Node module for appedning headers to Sinch REST requests. Support basic auth, auth ticket, application signed and instance signed.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "Sinch",
+    "SMS",
+    "VoIP",
+    "calling",
+    "video",
+    "datachannel",
+    "webrtc",
+    "SDK",
+    "request",
+    "signing",
+    "signature",
+    "digest",
+    "http auth",
+    "PAPI"
+  ],
   "author": "Magnus Lundstedt",
   "license": "MIT",
   "dependencies": {
