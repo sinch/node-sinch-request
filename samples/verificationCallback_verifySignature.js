@@ -1,6 +1,6 @@
 // HTTP backend for verification callbacks
 
-var sinchRequest = require('./index.js');
+var sinchRequest = require('../index.js');
 var https = require('https');
 var http = require('http'); // Note; http for demo purposes only, use https in production
 
