@@ -2,6 +2,8 @@
 
 Node module to add authentication headers, or validate request headers, according to Sinch HTTP Authentication practice for Digest authentication and user authentication. Compatible with browserify for browser based applications.
 
+_Note: This module is for advanced developer where specific control over HTTP requests are required. For a more high-level module, check out the sinch-rest-api module or the sinch SDK._
+
 Transforming request headers usually involves verifying and/or setting the following headers as needed;
 
  - authorization
@@ -22,6 +24,8 @@ _Note: Module is compatible with browserify_
 	var sinchRequest = require('sinch-request');
 
 Pass the options object through the relevant sinchRequest method, before proceeding with the http request, as shown in the following example.
+
+## Example, send SMS
 
 	var sinchRequest = require('sinch-request');
 	var https = require('https');
@@ -58,6 +62,45 @@ Pass the options object through the relevant sinchRequest method, before proceed
 	});
 	req.end(options.data);
 
+## Example, verify callback signature
+
+	var sinchRequest = require('sinch-request');
+	var http = require('http');
+
+	// Your application credentials
+	var creds = {
+	  key: 'SOME_APP_KEY',
+	  secret: 'SOME_APP_SECRET'
+	}
+
+	// Create a server
+	var server = http.createServer(function handleRequest(request, response) {
+	  var data = '';
+	  request.on('data', function (chunk) {
+	    data += chunk; // Collect POST data
+	  });
+
+	  request.on('end', function() {
+	    request.data = data;
+
+	    // Verify signature
+	    var validSignature = sinchRequest.verifySignature(request, creds);
+
+	    response.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+	    if(validSignature) {
+	      response.end(someResponse); // Give good response
+	    }
+	    else {
+	      response.end('{}'); // This was not from Sinch, give empty response
+	      // Optionally this attempt should be logged for later investigation
+	    }
+	  });
+	});
+
+	server.listen(8080, function(){ console.log('Server is running'); });
+
+In this example, a simple http callback server is set-up to validate incoming requests. This is important in order to verify that the requests are actually coming from Sinch. When giving a positive response, additional checks may be desired. For example, when building a verification backend it may be a good idea to have some checks on the price or any custom headers you've attached to the request (for example, a session ID) in order to prevent abuse or unexpected costs. Also, in the case of verification, it may be a good idea to log successful verification attempts. 
+
 ## Get your app key
 
 New to Sinch? In order to get started, please visit [our website](http://www.sinch.com) and sign up for a free development account.
@@ -67,7 +110,7 @@ New to Sinch? In order to get started, please visit [our website](http://www.sin
 - __public__ - Used for public endpoints (only sinch User API)
 - __applicationSigned__ - Digest authentication using application credentials
 - __instanceSigned__ - Digest authentication using instance credentials
-- __verify__ - Verify incoming request with Digest authentication (Coming soon..)
+- __verify__ - Verify incoming request with Digest authentication 
 - __ticket__ - Use a ticket for request authentication, only used for retrieving an instance
 
 ## Application or Instance credentials?

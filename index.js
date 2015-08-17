@@ -9,6 +9,6 @@ module.exports = {
 	ticket: ticket.addTicket,
 	applicationSigned: sign.applicationSignedRequest,
 	instanceSigned: sign.instanceSignedRequest,
-	verify: sign.verify, // TODO
+	verifySignature: sign.verifySignature, // TODO
 };
 
