@@ -13,6 +13,7 @@ var user = {
 }
 
 var options = {
+  protocol: 'https:',
   method: 'POST',
   host: 'userapi.sinch.com',
   port: 443,
@@ -40,6 +41,7 @@ req.end(options.data);
 // Step 2: Get instance (temporary key/secret) to access REST resources as a particular user
 var getInstance = function(authTicket) {
   var options = {
+    protocol: 'https:',
     method: 'POST',
     host: 'api.sinch.com',
     port: 443,
@@ -71,6 +73,7 @@ var getInstance = function(authTicket) {
 // Step 3: Retrieve the organization assigned to the particular user we're authenticated as
 var getOrgs = function(creds) {
   var options = {
+    protocol: 'https:',
     method: 'GET',
     host: 'api.sinch.com',
     port: 443,
@@ -97,6 +100,7 @@ var getOrgs = function(creds) {
 // Step 4: Retrieve the list of number pools available to given organizationId and particular user we're authenticated as
 var getDidsForSale = function(creds, organizationId) {
   var options = {
+    protocol: 'https:',
     method: 'GET',
     host: 'portalapi.sinch.com',
     port: 443,

@@ -13,6 +13,7 @@ var creds = {
 
 // HTTP request parameters for sending SMS
 var options = {
+  protocol: 'https:',
   method: 'POST',
   host: 'messagingapi-01.sinch.com',
   port: 443,
