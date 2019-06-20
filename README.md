@@ -39,7 +39,7 @@ Pass the options object through the relevant sinchRequest method, before proceed
 	// HTTP request parameters for sending SMS
 	var options = {
 	  method: 'POST',
-	  host: 'messagingapi-01.sinch.com',
+	  host: 'messagingapi.sinch.com',
 	  port: 443,
 	  path: '/v1/sms/+1555123456',
 	  data: '{"message":"Hello World!"}', // Data to be sent in JSON format
@@ -164,7 +164,7 @@ Instead of including data in the options object it's possible to only set the `C
 	// HTTP request parameters for sending SMS
 	var options = {
 	  method: 'POST',
-	  host: 'messagingapi-01.sinch.com',
+	  host: 'messagingapi.sinch.com',
 	  port: 443,
 	  path: '/v1/sms/+1555123456',
 	  withCredentials: false, // Necessary for browser compatability (browserify)
